@@ -33,7 +33,19 @@ app.listen(5000,(err)=>{   //JE FIXE LE PORT 5000 QUI EST LE 1 PARAMETRE DE APP.
         console.log('SERVER IS RUNNING ')
     }
 })//je dois demarrer le server :node server.js
-app.use(function (req, res, next) {
-    console.log('Time:', Date.now());
-    next();
-  });
+
+app.use(function (req, res, next) 
+{ 
+    const hour = new Date().getHours()
+    const day = new Date().getDay()
+    
+if (hour >= 09 && hour <= 18 && day >=0 && day <=5)
+ {
+   res.sendFile(path.join(__dirname,'public','index.html'))
+    next()
+  } else {
+    res.send('<h1> Sorry We are Closed now  </h1>')
+  }})
+
+  
+     
